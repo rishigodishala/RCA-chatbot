@@ -5,98 +5,171 @@ from reportlab.lib.utils import ImageReader
 import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
+from datetime import datetime
 
 class ReportGenerator:
-    def __init__(self, scores, history, biodata=None):
-        self.scores = scores
+    def __init__(self, metrics, history, problem_context=None, workflow="8D", evidence_images=None):
+        self.metrics = metrics
         self.history = history
-        self.biodata = biodata or {}
+        self.problem_context = problem_context or {}
+        self.workflow = workflow
+        self.evidence_images = evidence_images or []
 
     def generate_text_report(self):
-        report = "Recruitment Personality Assessment Report\n\n"
-        if self.biodata:
-            report += "Biodata:\n"
-            for key, value in self.biodata.items():
-                report += f"{key.capitalize()}: {value}\n"
+        report = f"{'='*80}\n"
+        report += f"ROOT CAUSE ANALYSIS REPORT - {self.workflow} METHODOLOGY\n"
+        report += f"{'='*80}\n\n"
+        report += f"Report Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+        
+        # Problem Context Section
+        report += f"{'-'*80}\n"
+        report += "PROBLEM CONTEXT\n"
+        report += f"{'-'*80}\n"
+        if self.problem_context:
+            for key, value in self.problem_context.items():
+                report += f"{key.replace('_', ' ').title()}: {value}\n"
             report += "\n"
-
-        report += "Big Five Traits Scores (0-10):\n"
-        for trait, score in self.scores.items():
-            if trait != "Authenticity":
-                report += f"{trait}: {score}\n"
-        report += f"\nAuthenticity Score: {self.scores['Authenticity']}\n\n"
-
-        # Enhanced Strengths and Recommendations
-        strengths = []
-        recommendations = []
-
-        # Strengths based on high scores (>7)
-        if self.scores["Openness"] > 7:
-            strengths.append("High Openness: Creative, open to new ideas, and adaptable to change.")
-        elif self.scores["Openness"] > 4:
-            strengths.append("Moderate Openness: Balanced creativity and practicality.")
-        else:
-            recommendations.append("Low Openness: May benefit from exposure to new experiences.")
-
-        if self.scores["Conscientiousness"] > 7:
-            strengths.append("High Conscientiousness: Organized, reliable, and goal-oriented.")
-        elif self.scores["Conscientiousness"] > 4:
-            strengths.append("Moderate Conscientiousness: Dependable with room for structure.")
-        else:
-            recommendations.append("Low Conscientiousness: Develop time management skills.")
-
-        if self.scores["Extraversion"] > 7:
-            strengths.append("High Extraversion: Outgoing, energetic, and thrives in social settings.")
-        elif self.scores["Extraversion"] > 4:
-            strengths.append("Moderate Extraversion: Balanced social and independent work.")
-        else:
-            recommendations.append("Low Extraversion: Consider roles with independent tasks.")
-
-        if self.scores["Agreeableness"] > 7:
-            strengths.append("High Agreeableness: Cooperative, empathetic, and team player.")
-        elif self.scores["Agreeableness"] > 4:
-            strengths.append("Moderate Agreeableness: Collaborative with assertiveness.")
-        else:
-            recommendations.append("Low Agreeableness: Work on conflict resolution.")
-
-        if self.scores["Neuroticism"] < 3:
-            strengths.append("Low Neuroticism: Emotionally stable and resilient under pressure.")
-        elif self.scores["Neuroticism"] < 7:
-            strengths.append("Moderate Neuroticism: Handles stress well overall.")
-        else:
-            recommendations.append("High Neuroticism: Stress management techniques recommended.")
-
-        if self.scores["Authenticity"] > 7:
-            strengths.append("High Authenticity: Responses appear genuine and consistent.")
-        else:
-            recommendations.append("Moderate Authenticity: Follow-up verification suggested.")
-
-        report += "Strengths:\n" + "\n".join(strengths) + "\n\n"
-        report += "Recommendations:\n" + "\n".join(recommendations) + "\n\n"
-
-        # Assessment Summary
-        report += "Assessment Summary:\n"
-        report += "This assessment evaluates personality traits using the Big Five model, tailored to the candidate's background. "
-        report += "Scores indicate potential fit for roles requiring specific behaviors, such as teamwork (high Agreeableness) or innovation (high Openness). "
-        report += "For students or entry-level candidates, focus on academic and personal experiences highlights transferable skills.\n\n"
-
-        report += "Conversation Summary:\n"
+        
+        # Investigation Metrics
+        report += f"{'-'*80}\n"
+        report += "INVESTIGATION METRICS\n"
+        report += f"{'-'*80}\n"
+        for metric, value in self.metrics.items():
+            report += f"{metric}: {value:.1f}\n"
+        report += "\n"
+        
+        # Methodology-specific sections
+        if self.workflow == "8D":
+            report += self._generate_8d_section()
+        elif self.workflow == "5-Why":
+            report += self._generate_5why_section()
+        elif self.workflow == "A3":
+            report += self._generate_a3_section()
+        
+        # Investigation History
+        report += f"{'-'*80}\n"
+        report += "INVESTIGATION HISTORY\n"
+        report += f"{'-'*80}\n"
         for i, (q, a) in enumerate(self.history):
-            if q != "System":
-                report += f"Q{i+1}: {q}\nA{i+1}: {a}\n\n"
-
+            if q != "System" and not q.startswith(self.workflow):
+                report += f"\nQ{i}: {q}\n"
+                report += f"A{i}: {a}\n"
+        report += "\n"
+        
+        # Evidence Section
+        if self.evidence_images:
+            report += f"{'-'*80}\n"
+            report += "EVIDENCE IMAGES\n"
+            report += f"{'-'*80}\n"
+            for img in self.evidence_images:
+                report += f"- {img}\n"
+            report += "\n"
+        
+        # Recommendations
+        report += f"{'-'*80}\n"
+        report += "RECOMMENDATIONS\n"
+        report += f"{'-'*80}\n"
+        report += self._generate_recommendations()
+        
+        report += f"\n{'='*80}\n"
+        report += "END OF REPORT\n"
+        report += f"{'='*80}\n"
+        
         return report
+    
+    def _generate_8d_section(self):
+        section = f"{'-'*80}\n"
+        section += "8D METHODOLOGY ANALYSIS\n"
+        section += f"{'-'*80}\n"
+        section += """
+D0: Prepare and Plan - Investigation initiated
+D1: Establish Team - Cross-functional investigation team
+D2: Problem Description - Documented in problem context
+D3: Interim Containment - Immediate actions to be determined
+D4: Root Cause Analysis - Investigation in progress
+D5: Corrective Actions - To be developed based on findings
+D6: Implementation - Pending corrective action selection
+D7: Prevention - Standardization and lessons learned
+D8: Team Recognition - Upon successful completion
+
+"""
+        return section
+    
+    def _generate_5why_section(self):
+        section = f"{'-'*80}\n"
+        section += "5-WHY ANALYSIS\n"
+        section += f"{'-'*80}\n"
+        section += """
+The 5-Why technique has been applied to identify root causes through
+iterative questioning. Each "why" builds upon the previous answer to
+dig deeper into the underlying systemic issues.
+
+Key Findings:
+- Investigation focused on cause-and-effect relationships
+- Multiple potential root causes identified
+- Verification of root causes recommended before implementing solutions
+
+"""
+        return section
+    
+    def _generate_a3_section(self):
+        section = f"{'-'*80}\n"
+        section += "A3 PROBLEM SOLVING FORMAT\n"
+        section += f"{'-'*80}\n"
+        section += """
+Background: Problem context documented
+Current Condition: Investigation findings captured
+Goal/Target: Problem resolution and prevention
+Root Cause Analysis: Systematic investigation conducted
+Countermeasures: To be developed based on findings
+Implementation Plan: Pending countermeasure selection
+Follow-up: Monitoring and verification required
+
+"""
+        return section
+    
+    def _generate_recommendations(self):
+        recommendations = """
+Based on the investigation conducted:
+
+1. IMMEDIATE ACTIONS:
+   - Verify identified root causes with additional data
+   - Implement interim containment measures if not already done
+   - Document all findings and evidence
+
+2. CORRECTIVE ACTIONS:
+   - Develop specific corrective actions targeting root causes
+   - Test proposed solutions before full implementation
+   - Establish metrics to measure effectiveness
+
+3. PREVENTIVE MEASURES:
+   - Update procedures and work instructions
+   - Implement mistake-proofing (Poka-Yoke) where applicable
+   - Share lessons learned across organization
+   - Establish monitoring to prevent recurrence
+
+4. FOLLOW-UP:
+   - Schedule regular reviews to verify effectiveness
+   - Monitor key metrics for sustained improvement
+   - Document lessons learned for future reference
+
+"""
+        return recommendations
 
     def generate_chart(self):
-        traits = [k for k in self.scores.keys() if k != "Authenticity"]
-        values = [self.scores[t] for t in traits]
+        metrics = list(self.metrics.keys())
+        values = list(self.metrics.values())
 
-        fig, ax = plt.subplots(figsize=(8, 4))
-        ax.bar(traits, values, color=['blue', 'green', 'orange', 'purple', 'red'])
-        ax.set_ylabel('Score')
-        ax.set_title('Big Five Personality Traits')
-        ax.set_ylim(0, 10)
-        plt.xticks(rotation=45, ha='right')
+        fig, ax = plt.subplots(figsize=(10, 5))
+        colors = ['#2E86AB', '#A23B72', '#F18F01', '#C73E1D']
+        ax.barh(metrics, values, color=colors[:len(metrics)])
+        ax.set_xlabel('Score / Progress (%)')
+        ax.set_title(f'RCA Investigation Metrics - {self.workflow} Methodology')
+        ax.set_xlim(0, 100)
+        
+        # Add value labels on bars
+        for i, v in enumerate(values):
+            ax.text(v + 2, i, f'{v:.1f}', va='center')
 
         buf = BytesIO()
         fig.savefig(buf, format='png', bbox_inches='tight')
@@ -105,7 +178,7 @@ class ReportGenerator:
         plt.close(fig)
         return img_data
 
-    def generate_pdf_report(self, filename="report.pdf"):
+    def generate_pdf_report(self, filename="rca_report.pdf"):
         text_report = self.generate_text_report()
         chart_img = self.generate_chart()
 
@@ -113,39 +186,67 @@ class ReportGenerator:
         width, height = letter
 
         # Title
-        c.setFont("Helvetica-Bold", 16)
-        c.drawString(100, height - 100, "Recruitment Personality Assessment Report")
+        c.setFont("Helvetica-Bold", 18)
+        c.drawString(100, height - 80, f"Root Cause Analysis Report")
+        c.setFont("Helvetica", 12)
+        c.drawString(100, height - 100, f"{self.workflow} Methodology")
+        c.drawString(100, height - 115, f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-        # Biodata
-        y = height - 150
-        if self.biodata:
-            c.setFont("Helvetica", 12)
-            c.drawString(100, y, "Biodata:")
-            y -= 20
-            for key, value in self.biodata.items():
-                c.drawString(120, y, f"{key.capitalize()}: {value}")
-                y -= 20
+        # Problem Context
+        y = height - 160
+        if self.problem_context:
+            c.setFont("Helvetica-Bold", 14)
+            c.drawString(100, y, "Problem Context:")
+            y -= 25
+            c.setFont("Helvetica", 11)
+            for key, value in self.problem_context.items():
+                text = f"{key.replace('_', ' ').title()}: {value}"
+                # Wrap long text
+                if len(text) > 70:
+                    text = text[:70] + "..."
+                c.drawString(120, y, text)
+                y -= 18
 
-        # Scores
-        y -= 20
-        c.drawString(100, y, "Big Five Traits Scores:")
-        y -= 20
-        for trait, score in self.scores.items():
-            if trait != "Authenticity":
-                c.drawString(120, y, f"{trait}: {score}")
-                y -= 15
-        c.drawString(120, y, f"Authenticity: {self.scores['Authenticity']}")
-        y -= 30
+        # Metrics
+        y -= 25
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(100, y, "Investigation Metrics:")
+        y -= 25
+        c.setFont("Helvetica", 11)
+        for metric, value in self.metrics.items():
+            c.drawString(120, y, f"{metric}: {value:.1f}")
+            y -= 18
 
         # Embed chart image
+        y -= 30
+        if y < 250:
+            c.showPage()
+            y = height - 100
+        
         img = ImageReader(io.BytesIO(chart_img))
-        c.drawImage(img, 100, y - 200, width=400, height=200, preserveAspectRatio=True)
-        y -= 250
+        c.drawImage(img, 80, y - 220, width=450, height=200, preserveAspectRatio=True)
+        y -= 240
 
-        # Strengths and Recommendations (truncated for PDF simplicity)
-        c.drawString(100, y, "Strengths and Recommendations: See text report for details.")
-        y -= 20
-        c.drawString(100, y, "Assessment covers all traits comprehensively based on responses.")
+        # Summary
+        if y < 150:
+            c.showPage()
+            y = height - 100
+        
+        c.setFont("Helvetica-Bold", 14)
+        c.drawString(100, y, "Summary:")
+        y -= 25
+        c.setFont("Helvetica", 10)
+        c.drawString(100, y, "Detailed investigation conducted using systematic RCA methodology.")
+        y -= 15
+        c.drawString(100, y, "Root causes identified through structured questioning and analysis.")
+        y -= 15
+        c.drawString(100, y, "Recommendations provided for corrective and preventive actions.")
+        
+        # Evidence
+        if self.evidence_images:
+            y -= 30
+            c.setFont("Helvetica-Bold", 12)
+            c.drawString(100, y, f"Evidence Images: {len(self.evidence_images)} file(s) attached")
 
         c.save()
         return filename

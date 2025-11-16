@@ -1,0 +1,116 @@
+# 8D Problem Solving Methodology
+
+## Overview
+The 8D (Eight Disciplines) problem-solving methodology is a structured approach used to identify, correct, and eliminate recurring problems. It is widely used in manufacturing, quality management, and engineering to address complex technical issues.
+
+## The 8 Disciplines
+
+### D0: Prepare and Plan
+- Assess the problem and determine if 8D is appropriate
+- Prepare emergency response actions (ERAs) if needed
+- Identify the team leader and core team members
+- Define the problem-solving timeline and resources
+
+### D1: Establish the Team
+- Form a cross-functional team with relevant expertise
+- Include members from: Engineering, Quality, Production, Maintenance, etc.
+- Define roles and responsibilities
+- Ensure team has authority to implement solutions
+- Team should have: Technical knowledge, Process knowledge, Decision-making authority
+
+### D2: Describe the Problem
+- Use the "Is/Is Not" analysis technique
+- Define: What, Where, When, How Much (extent)
+- Collect data and evidence (photos, measurements, logs)
+- Quantify the problem impact (defect rate, downtime, cost)
+- Create a clear problem statement: "What is wrong, where it occurs, when it happens, and the magnitude"
+
+### D3: Develop Interim Containment Actions (ICA)
+- Implement immediate actions to protect customers
+- Isolate affected products or processes
+- Increase inspection frequency
+- Verify effectiveness of containment
+- Document all containment actions
+- ICAs are temporary until root cause is fixed
+
+### D4: Determine and Verify Root Causes
+- Use root cause analysis tools:
+  * 5-Why Analysis
+  * Fishbone (Ishikawa) Diagram
+  * Fault Tree Analysis
+  * Pareto Analysis
+- Test hypotheses with data
+- Verify root cause by reproducing the problem
+- Distinguish between root cause and contributing factors
+- Document all findings with evidence
+
+### D5: Choose and Verify Permanent Corrective Actions (PCA)
+- Brainstorm potential solutions
+- Evaluate solutions based on: Effectiveness, Feasibility, Cost, Time
+- Select best corrective action(s)
+- Test PCA in controlled environment
+- Verify PCA eliminates root cause without side effects
+- Plan implementation strategy
+
+### D6: Implement and Validate Permanent Corrective Actions
+- Develop implementation plan with timeline
+- Remove interim containment actions
+- Implement PCA in production environment
+- Monitor results and collect data
+- Validate effectiveness over time
+- Update procedures, work instructions, and training
+- Communicate changes to all stakeholders
+
+### D7: Prevent Recurrence
+- Update management systems (FMEA, Control Plans, SOPs)
+- Modify design or process specifications
+- Implement mistake-proofing (Poka-Yoke)
+- Share lessons learned across organization
+- Update training materials
+- Review similar processes for same issue
+- Establish ongoing monitoring
+
+### D8: Congratulate the Team
+- Recognize team contributions
+- Document lessons learned
+- Share success story
+- Archive all documentation
+- Celebrate achievement
+- Apply learnings to future projects
+
+## Key Success Factors
+- Strong team leadership and commitment
+- Data-driven decision making
+- Thorough root cause analysis
+- Effective communication
+- Management support
+- Timely execution
+- Proper documentation
+
+## Common Pitfalls to Avoid
+- Jumping to solutions without root cause analysis
+- Inadequate problem definition
+- Weak containment actions
+- Insufficient verification of corrective actions
+- Poor documentation
+- Lack of follow-through on prevention
+
+## Tools and Techniques Used in 8D
+- Is/Is Not Analysis
+- 5-Why Analysis
+- Fishbone Diagram
+- Pareto Chart
+- Control Charts
+- FMEA (Failure Mode Effects Analysis)
+- DOE (Design of Experiments)
+- Statistical Process Control
+
+## Documentation Requirements
+- Problem description with evidence
+- Team composition and roles
+- Root cause analysis results
+- Corrective action plans
+- Verification data
+- Implementation timeline
+- Lessons learned
+- Final report with all findings

@@ -1,0 +1,213 @@
+# 5-Why Root Cause Analysis Technique
+
+## Overview
+The 5-Why technique is a simple but powerful tool for root cause analysis. By asking "Why?" five times (or more), you can peel away the layers of symptoms to reveal the underlying root cause of a problem.
+
+## Methodology
+
+### Basic Process
+1. Define the problem clearly and specifically
+2. Ask "Why did this problem occur?"
+3. For each answer, ask "Why?" again
+4. Continue until you reach the root cause (usually 5 iterations)
+5. The root cause is typically a process or system failure, not human error
+
+### Key Principles
+- Focus on processes and systems, not people
+- Each "why" should be based on facts and data
+- Stop when asking "why" no longer provides useful information
+- The root cause should be actionable
+- May need more or fewer than 5 "whys"
+- Can branch into multiple paths if multiple causes exist
+
+## Example 1: Manufacturing Defect
+
+**Problem:** Product has cosmetic defects
+
+**Why 1:** Why does the product have cosmetic defects?
+- Answer: The paint finish is uneven
+
+**Why 2:** Why is the paint finish uneven?
+- Answer: The spray gun is not applying paint consistently
+
+**Why 3:** Why is the spray gun not applying paint consistently?
+- Answer: The nozzle is partially clogged
+
+**Why 4:** Why is the nozzle partially clogged?
+- Answer: The paint is not being filtered properly
+
+**Why 5:** Why is the paint not being filtered properly?
+- Answer: The filter replacement schedule is not being followed
+
+**Root Cause:** Lack of preventive maintenance schedule adherence
+**Corrective Action:** Implement automated filter replacement reminders and tracking system
+
+## Example 2: Equipment Downtime
+
+**Problem:** Machine stopped unexpectedly
+
+**Why 1:** Why did the machine stop?
+- Answer: Circuit breaker tripped
+
+**Why 2:** Why did the circuit breaker trip?
+- Answer: Motor was drawing excessive current
+
+**Why 3:** Why was the motor drawing excessive current?
+- Answer: Bearings were seized
+
+**Why 4:** Why were the bearings seized?
+- Answer: Insufficient lubrication
+
+**Why 5:** Why was there insufficient lubrication?
+- Answer: Lubrication schedule was not documented or followed
+
+**Root Cause:** Missing preventive maintenance procedures
+**Corrective Action:** Create and implement lubrication maintenance schedule with tracking
+
+## Example 3: Software Bug
+
+**Problem:** Application crashes when user clicks submit button
+
+**Why 1:** Why does the application crash?
+- Answer: Null pointer exception occurs
+
+**Why 2:** Why does a null pointer exception occur?
+- Answer: User input validation is missing
+
+**Why 3:** Why is user input validation missing?
+- Answer: Validation was not included in the requirements
+
+**Why 4:** Why was validation not included in requirements?
+- Answer: Requirements review process was incomplete
+
+**Why 5:** Why was the requirements review process incomplete?
+- Answer: No checklist exists for requirements review
+
+**Root Cause:** Lack of standardized requirements review process
+**Corrective Action:** Create requirements review checklist and make it mandatory
+
+## Best Practices
+
+### Do's
+- Start with a clear, specific problem statement
+- Use facts and data, not assumptions
+- Involve people who understand the process
+- Document each step and the evidence
+- Be prepared to branch into multiple paths
+- Focus on systemic issues, not blame
+- Verify the root cause by testing if fixing it prevents recurrence
+
+### Don'ts
+- Don't stop at symptoms
+- Don't blame individuals
+- Don't make assumptions without verification
+- Don't skip levels of causation
+- Don't accept "human error" as root cause (dig deeper)
+- Don't rush the process
+- Don't ignore multiple contributing factors
+
+## When to Use 5-Why
+- Simple to moderately complex problems
+- When quick root cause analysis is needed
+- When the problem has a clear linear cause-effect relationship
+- As part of other methodologies (8D, A3, Six Sigma)
+- For continuous improvement initiatives
+
+## When NOT to Use 5-Why Alone
+- Highly complex problems with multiple interacting causes
+- When rigorous statistical analysis is required
+- When the problem involves multiple systems or departments
+- When more structured approaches like FMEA are needed
+
+## Combining 5-Why with Other Tools
+
+### With Fishbone Diagram
+- Use fishbone to identify potential cause categories
+- Apply 5-Why to each major branch
+- Helps organize complex problems
+
+### With 8D Process
+- Use 5-Why in D4 (Root Cause Analysis)
+- Provides structured questioning approach
+- Documents cause-effect chain
+
+### With A3 Problem Solving
+- Use 5-Why in the analysis section
+- Visualize the cause chain
+- Support countermeasure development
+
+## Common Mistakes
+
+### Mistake 1: Stopping Too Early
+- Symptom: "Why did the machine fail? Because a part broke."
+- Problem: This is a symptom, not root cause
+- Solution: Keep asking why the part broke
+
+### Mistake 2: Blaming People
+- Symptom: "Why was it wrong? Because John made a mistake."
+- Problem: Doesn't address systemic issues
+- Solution: Ask why the system allowed the mistake
+
+### Mistake 3: Multiple Causes in One Answer
+- Symptom: "Why? Because A and B and C happened."
+- Problem: Loses focus and clarity
+- Solution: Branch into separate paths for each cause
+
+### Mistake 4: Lack of Verification
+- Symptom: Assuming root cause without testing
+- Problem: May implement wrong solution
+- Solution: Verify by testing if fixing it prevents recurrence
+
+## Documentation Template
+
+**Problem Statement:**
+[Clear description of the problem]
+
+**Why 1:**
+Q: Why did [problem] occur?
+A: [Answer based on facts]
+Evidence: [Data, photos, measurements]
+
+**Why 2:**
+Q: Why did [answer from Why 1] occur?
+A: [Answer based on facts]
+Evidence: [Data, photos, measurements]
+
+**Why 3:**
+Q: Why did [answer from Why 2] occur?
+A: [Answer based on facts]
+Evidence: [Data, photos, measurements]
+
+**Why 4:**
+Q: Why did [answer from Why 3] occur?
+A: [Answer based on facts]
+Evidence: [Data, photos, measurements]
+
+**Why 5:**
+Q: Why did [answer from Why 4] occur?
+A: [Answer based on facts]
+Evidence: [Data, photos, measurements]
+
+**Root Cause:**
+[Final root cause identified]
+
+**Verification:**
+[How root cause was verified]
+
+**Corrective Action:**
+[Action to address root cause]
+
+**Prevention:**
+[How to prevent recurrence]
+
+## Tips for Effective 5-Why Analysis
+1. Assemble the right team with process knowledge
+2. Go to the actual location (Gemba) to observe
+3. Use data and evidence, not opinions
+4. Be patient and thorough
+5. Challenge assumptions
+6. Look for process failures, not people failures
+7. Document everything
+8. Verify your findings
+9. Implement and monitor corrective actions
+10. Share lessons learned
